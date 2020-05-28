@@ -60,18 +60,35 @@ def get_base_x_distr(numeric_syst, n_places=8, symbolic=True):
 
     return distr
 
-    
+def simple_combinations(d):
+    '''
+    combinations of the current length of the counting system
+    '''
+    counts = d.values()
+    perms = []
+
+    for value in counts:
+        perm = True
+
+        for number in value:
+            if value.count(number) > 1:
+                perm = False
+                break
+        if perm == True and sorted(value, reverse=True) not in perms:
+            perms.append(sorted(value, reverse=True))
+    return sorted(perms)
 
 
 if __name__ == "__main__":
 
-    # numeric_system = ['dog', 'cat', 'bear']
-    # print(dec_to_symbolic(32, numeric_syst=numeric_system, n_places=5))
-    # for k, v in get_base_count(numeric_system, n_places=3).items():
-    #     print(f'{k}: {v}')
 
-    # for k, v in get_base_x_distr(numeric_system, n_places=4, symbolic=False).items():
-    #     print(f'{k}: {v}')
+    numeric_system = ['dog', 'cat', 'bear', 'elephant', 'pig']
 
-    numeric_system = range(0,10)
-    d = get_base_count(numeric_system, n_places=5)
+    d = get_base_count(numeric_system, n_places=4)
+
+
+
+    combs = simple_combinations(d)
+    for comb in combs:
+        print(comb)
+    print(len(combs))
