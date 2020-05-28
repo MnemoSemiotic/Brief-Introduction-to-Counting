@@ -60,13 +60,15 @@ def get_base_x_distr(numeric_syst, n_places=8, symbolic=True):
 
     return distr
 
-def simple_combinations(d):
+def simple_permutations_combinations(d):
     '''
-    combinations of the current length of the counting system
+    permutations and combinations of the current length 
+    of the counting system
     '''
     counts = d.values()
     perms = []
-
+    combs = []
+    
     for value in counts:
         perm = True
 
@@ -74,9 +76,11 @@ def simple_combinations(d):
             if value.count(number) > 1:
                 perm = False
                 break
-        if perm == True and sorted(value, reverse=True) not in perms:
-            perms.append(sorted(value, reverse=True))
-    return sorted(perms)
+        if perm == True:
+            perms.append(value)
+            if sorted(value, reverse=True) not in combs:
+                combs.append(sorted(value, reverse=True))
+    return perms, sorted(combs)
 
 
 if __name__ == "__main__":
@@ -88,7 +92,10 @@ if __name__ == "__main__":
 
 
 
-    combs = simple_combinations(d)
-    for comb in combs:
-        print(comb)
+    perms, combs = simple_permutations_combinations(d)
+    for perm in perms:
+        print(perm)
+    # for comb in combs:
+    #     print(comb)
+    print(len(perms))
     print(len(combs))
