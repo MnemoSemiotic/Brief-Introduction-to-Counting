@@ -48,10 +48,8 @@ def get_base_x_distr(base, n_places=8):
 
 
 if __name__ == "__main__":
-    # print(dec_to_base_x(76, 7, n_places=10))
 
-    # for k, v in get_base_x_distr(64, n_places=3).items():
-    #     print(f'{k}: {v}')
     numeric_system = ['dog', 'cat', 'bear']
     # print(dec_to_symbolic(32, numeric_syst=numeric_system, n_places=5))
-    print(get_base_count(numeric_system, n_places=8))
+    for k, v in get_base_count(numeric_system, n_places=3).items():
+        print(f'{k}: {v}')
