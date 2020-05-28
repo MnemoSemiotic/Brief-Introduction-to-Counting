@@ -30,12 +30,28 @@ def get_base_count(numeric_syst, n_places=8):
     return counts_d
 
 
-def get_base_x_distr(base, n_places=8):
-    base_count = get_base_count(base, n_places)
+def get_digit_sum(numeric_syst, number, symbolic):
+    digit_sum_dec = []
+
+    for item in number:
+        digit_sum_dec.append(numeric_syst.index(item))
+
+    if symbolic == False:
+        return sum(digit_sum_dec)
+
+    digit_sum_symbolic = dec_to_symbolic(sum(digit_sum_dec), numeric_syst, n_places=len(digit_sum_dec))
+
+    digit_sum_symbolic = [str(item) for item in digit_sum_symbolic]
+
+    return ''.join(digit_sum_symbolic)
+
+
+def get_base_x_distr(numeric_syst, n_places=8, symbolic=True):
+    base_count = get_base_count(numeric_syst, n_places)
     distr = {}
 
     for _, number in base_count.items():
-        digit_sum = sum(number)
+        digit_sum = get_digit_sum(numeric_syst, number, symbolic=symbolic)
 
         if digit_sum not in distr:
             distr[digit_sum] = 1
@@ -49,7 +65,13 @@ def get_base_x_distr(base, n_places=8):
 
 if __name__ == "__main__":
 
-    numeric_system = ['dog', 'cat', 'bear']
+    # numeric_system = ['dog', 'cat', 'bear']
     # print(dec_to_symbolic(32, numeric_syst=numeric_system, n_places=5))
-    for k, v in get_base_count(numeric_system, n_places=3).items():
-        print(f'{k}: {v}')
+    # for k, v in get_base_count(numeric_system, n_places=3).items():
+    #     print(f'{k}: {v}')
+
+    # for k, v in get_base_x_distr(numeric_system, n_places=4, symbolic=False).items():
+    #     print(f'{k}: {v}')
+
+    numeric_system = range(0,10)
+    d = get_base_count(numeric_system, n_places=5)
